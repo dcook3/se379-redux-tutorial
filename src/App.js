@@ -28,8 +28,8 @@ function App() {
               </>
             )}
           />
-          <Route exact path="/posts/:postId" component={<SinglePostPage />} />
-          <Route exact path="/editPost/:postId" component={<EditPostForm />} />
+          <Route exact path="/posts/:postId" component={SinglePostPage} />
+          <Route exact path="/editPost/:postId" component={EditPostForm} />
           <Redirect to="/" />
         </Switch>
       </div>
