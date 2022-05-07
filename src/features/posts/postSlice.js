@@ -35,23 +35,6 @@ const postsSlice = createSlice({
         return {payload: {id: nanoid(), date: new Date().toISOString(), title, content, user: userId}}
       }
     },
-    extraReducers(builder) {
-      builder
-        .addCase(fetchPosts.pending, (state, action) => {
-          state.status = 'loading'
-        })
-        .addCase(fetchPosts.fulfilled, (state, action) => {
-          state.status = 'succeeded'
-          state.posts = state.posts.concat(action.payload)
-        })
-        .addCase(fetchPosts.rejected, (state, action) => {
-          state.status = 'failed'
-          state.error = action.error.message
-        })
-        .addCase(addNewPost.fulfilled, (state, action) => {
-          state.posts.push(action.payload)
-        })
-    },
     postUpdated(state, action) {
       const { id, title, content } = action.payload
       const existingPost = state.posts.find(post => post.id === id)
@@ -67,6 +50,23 @@ const postsSlice = createSlice({
         existingPost.reactions[reaction]++
       }
     }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.posts = state.posts.concat(action.payload)
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload)
+      })
   }
 })
 
